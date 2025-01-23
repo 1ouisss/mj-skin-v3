@@ -1,0 +1,18 @@
+{
+  "skinTypes": {
+    "Sèche": {
+      "products": ["Crème Fraîche", "Eau de Néroli enrichie", "Lotus Sacré"],
+      "routine": {
+        "Matin": ["Nettoyage avec Crème Fraîche", "Application d'Eau de Néroli enrichie"],
+        "Soir": ["Nettoyage avec Crème Fraîche", "Masque Collagène"]
+      }
+    },
+    "Grasse": {
+      "products": ["Huile Nettoyante", "Eau d'Orange", "Gel Sébo"],
+      "routine": {
+        "Matin": ["Nettoyage avec Huile Nettoyante", "Gel Sébo"],
+        "Soir": ["Nettoyage avec Eau d'Orange"]
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+Perform a comprehensive analysis of the entire codebase to identify issues, potential errors, and areas for optimization. Provide actionable insights for improvement and any necessary code snippets to fix or optimize the code.
+
+Instructions for the AI Assistant:
+1. Codebase Overview:
+    * Analyze the entire structure of the codebase, including file organization, naming conventions, and folder hierarchy.
+    * Identify any missing or unnecessary files.
+2. Bug and Error Detection:
+    * Highlight all runtime errors and their specific locations in the codebase.
+    * Provide a list of potential bugs or vulnerabilities in the code.
+    * Include clear explanations of what causes each error and how to fix it.
+3. Performance Optimization:
+    * Find inefficient code blocks or bottlenecks in terms of speed or memory usage.
+    * Suggest optimized algorithms or alternative methods where possible.
+    * Highlight any unused variables, redundant code, or unnecessary complexity.
+4. Best Practices Adherence:
+    * Evaluate if the code follows standard practices for the programming language(s) used (e.g., PEP 8 for Python, clean code principles, etc.).
+    * Highlight violations or deviations and suggest changes.
+5. Security Audit:
+    * Review the code for security vulnerabilities, such as:
+        * SQL injection risks.
+        * Hardcoded sensitive information (e.g., API keys, passwords).
+        * Weak authentication or encryption mechanisms.
+    * Provide specific recommendations to patch security flaws.
+6. Dependency and Library Check:
+    * Check for outdated or unused dependencies.
+    * Suggest alternatives for libraries that have better performance or security.
+7. Testing Coverage and Tools:
+    * Identify if there is sufficient test coverage.
+    * Suggest test cases or methods to improve testing, such as unit testing, integration testing, and edge cases.
+8. Actionable Output:
+    * Provide line-by-line or function-specific feedback where issues are found.
+    * For each issue:
+        * Explain why it’s an issue.
+        * Provide a corrected or optimized version of the code.
+9. Error Prevention Tips:
+    * Suggest tools or configurations (e.g., linters, type checkers, or static analysis tools) to prevent future errors.
+
+Additional Details:
+* Ensure the explanation is clear and beginner-friendly, even for complex issues.
+* Provide step-by-step instructions for implementing fixes if required.
+* Highlight priority issues first, with reasons for urgency.
+
+Example Output Format:
+1. Issue Category: [Performance / Bug / Security, etc.]
+    * File: example_file.py
+    * Line: 45
+    * Description: [Clear explanation of the issue]
+    * Solution: [Code snippet or fix]
+    * Impact: [Brief on how it improves the code]
+2. Optimization Suggestion:
+    * File: another_example.js
+    * Line: 80-100
+    * Suggestion: [Detailed optimization steps]
+3. General Observations:
+    * [Broad observations about the structure, practices, or improvements.]
+
+Note for Replit AI Assistant:
+Please ensure the diagnosis is complete and free of generic advice. Focus on practical and specific outputs that can directly improve the codebase.

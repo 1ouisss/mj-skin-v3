@@ -1,0 +1,135 @@
+Diagnose the root causes of all errors in the application, including routing loops, state loss, component rendering issues, and API/data handling. This prompt will identify the problems without making changes or acting on them.
+
+Debugging Setup:
+Analyze Router Context:
+Ensure that all components using useNavigate() and useLocation() are wrapped within a valid <Router> context.
+Log routing paths and confirm navigation flow.
+Add this snippet to the App.tsx and all route components:
+
+tsx
+Copier
+Modifier
+import { useLocation } from "react-router-dom";
+
+const DebugRouter = () => {
+  const location = useLocation();
+  console.log("Current Route Path:", location.pathname);
+  return null;
+};
+Trace Navigation and Loops:
+Identify triggers for navigation loops by logging every navigation action.
+Confirm if useEffect hooks or conditional useNavigate calls are firing unnecessarily.
+Add this snippet to navigation-critical components:
+
+tsx
+Copier
+Modifier
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+const DebugNavigation = () => {
+  useEffect(() => {
+    console.log("Navigation action triggered");
+  }, []);
+
+  return null;
+};
+Inspect State Management:
+Log QuizContext or location.state in each component to trace where state might be lost.
+Ensure state transitions are consistent across pages.
+Add this snippet where QuizContext or location.state is used:
+
+tsx
+Copier
+Modifier
+import { useContext } from "react";
+import { QuizContext } from "../context/QuizContext";
+
+const DebugState = () => {
+  const quizContext = useContext(QuizContext);
+  console.log("Current Quiz Context State:", quizContext);
+  return null;
+};
+Check Component Lifecycle and Rendering:
+Log when each component mounts and unmounts to identify unexpected behavior.
+Catch rendering errors and confirm proper rendering order.
+Add this snippet to key components (e.g., PreviewAnswers.tsx, Recommendations.tsx):
+
+tsx
+Copier
+Modifier
+import { useEffect } from "react";
+
+const DebugLifecycle = ({ componentName }) => {
+  useEffect(() => {
+    console.log(`${componentName} mounted`);
+    return () => console.log(`${componentName} unmounted`);
+  }, []);
+
+  return null;
+};
+Validate API Calls and Data Flow:
+Log all API calls and confirm data structure matches component expectations.
+Verify data fetched or stored in local storage is valid and consistent.
+Add this snippet where API calls or local storage are used:
+
+tsx
+Copier
+Modifier
+const DebugAPI = async (endpoint) => {
+  try {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    console.log("API Response for", endpoint, ":", data);
+  } catch (error) {
+    console.error("API Error for", endpoint, ":", error);
+  }
+};
+Debug Error Boundaries:
+Wrap the application with an error boundary to catch uncaught rendering errors and log them.
+Enhance or add this error boundary in App.tsx:
+
+tsx
+Copier
+Modifier
+class DebugErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Error Caught in ErrorBoundary:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children;
+  }
+}
+
+// Wrap the entire app:
+<DebugErrorBoundary>
+  <App />
+</DebugErrorBoundary>
+Log All Console Warnings and Errors:
+Open the browser console (F12) and capture any runtime warnings or errors.
+Focus on React-specific warnings and JS runtime errors.
+Expected Logs and Output
+Routing Logs: Identify any misconfigured routes or early <Navigate> triggers.
+Navigation Logs: Trace unnecessary redirects or infinite loops.
+State Logs: Confirm state consistency across components and pages.
+Lifecycle Logs: Verify component rendering behavior.
+API/Data Logs: Spot errors in API calls or invalid data formats.
+Error Boundary Logs: Catch uncaught rendering errors.
+Instructions
+Add these debugging snippets to the relevant components in your app.
+Re-run the application in Replit.
+Observe the browser console and Replit logs for detailed outputs.
+Share the complete log outputs for analysis.

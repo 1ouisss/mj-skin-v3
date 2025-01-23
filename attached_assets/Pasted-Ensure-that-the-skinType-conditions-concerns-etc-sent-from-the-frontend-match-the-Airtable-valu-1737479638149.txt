@@ -1,0 +1,72 @@
+Ensure that the skinType, conditions, concerns, etc., sent from the frontend match the Airtable values exactly, considering capitalization, spelling, and extra spaces. Implement fixes in the backend to sanitize and align the incoming payload before querying Airtable.
+
+File: src/server.js
+
+Changes Required:
+
+Add sanitization logic to trim whitespace and standardize capitalization for incoming payload fields.
+Log sanitized payloads to verify alignment with Airtable.
+Update Airtable query to use the sanitized values.
+Code Changes:
+
+javascript
+Copier
+Modifier
+app.post('/api/recommendations', async (req, res) => {
+    try {
+        // Log raw incoming payload
+        console.log("Raw Payload Received:", req.body);
+
+        // Destructure and sanitize incoming fields
+        const {
+            skinType,
+            conditions,
+            concerns,
+            zones,
+            treatment,
+            fragrance,
+            routine
+        } = req.body;
+
+        // Sanitize payload (trim spaces and standardize capitalization)
+        const sanitizedPayload = {
+            skinType: skinType?.trim().toLowerCase(),
+            conditions: conditions?.trim().toLowerCase(),
+            concerns: concerns?.trim().toLowerCase(),
+            zones: zones?.trim().toLowerCase(),
+            treatment: treatment?.trim().toLowerCase(),
+            fragrance: fragrance?.trim().toLowerCase(),
+            routine: routine?.trim().toLowerCase(),
+        };
+
+        // Log sanitized payload
+        console.log("Sanitized Payload:", sanitizedPayload);
+
+        // Airtable query with sanitized values
+        const records = await base('Recommendations').select({
+            filterByFormula: `
+                AND(
+                    LOWER(TRIM({SkinType})) = "${sanitizedPayload.skinType}",
+                    LOWER(TRIM({Condition})) = "${sanitizedPayload.conditions}",
+                    LOWER(TRIM({Concerns})) = "${sanitizedPayload.concerns}"
+                )
+            `
+        }).all();
+
+        if (records.length === 0) {
+            return res.status(404).json({
+                error: "No matching recommendations found",
+                sanitizedPayload
+            });
+        }
+
+        // Map and return recommendations
+        const recommendations = records.map(record => record.fields);
+        console.log("Airtable Recommendations:", recommendations);
+        return res.status(200).json({ recommendations });
+
+    } catch (error) {
+        console.error("Error in /api/recommendations:", error);
+        res.status(500).json({ error: error.message });
+    }
+});

@@ -1,0 +1,84 @@
+// src/context/QuizContext.tsx
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
+interface QuizState {
+  currentStep: number;
+  answers: Record<string, string>;
+  completed: boolean;
+}
+
+interface QuizContextType extends QuizState {
+  updateAnswers: (step: number, newAnswers: Partial<QuizState['answers']>) => void;
+  markComplete: () => void;
+  resetQuiz: () => void;
+}
+
+export const QuizContext = createContext<QuizContextType | undefined>(undefined);
+
+export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [state, setState] = useState<QuizState>({
+    currentStep: 0,
+    answers: {},
+    completed: false,
+  });
+
+  useEffect(() => {
+    const savedState = localStorage.getItem('quizState');
+    if (savedState) {
+      setState(JSON.parse(savedState));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('quizState', JSON.stringify(state));
+  }, [state]);
+
+  const updateAnswers = (step: number, newAnswers: Partial<QuizState['answers']>) => {
+    setState((prev) => ({
+      ...prev,
+      currentStep: step,
+      answers: { ...prev.answers, ...newAnswers },
+    }));
+  };
+
+  const markComplete = () => {
+    const requiredFields: (keyof QuizState['answers'])[] = [
+      'skinType',
+      'condition',
+      'concerns',
+      'texturePreference',
+      'scentPreference',
+    ];
+    const isComplete = requiredFields.every((field) => state.answers[field]);
+
+    if (isComplete) {
+      setState((prev) => ({ ...prev, completed: true }));
+    } else {
+      console.warn('Not all required fields completed');
+    }
+  };
+
+  const resetQuiz = () => {
+    setState({
+      currentStep: 0,
+      answers: {},
+      completed: false,
+    });
+  };
+
+  return (
+    <QuizContext.Provider
+      value={{ ...state, updateAnswers, markComplete, resetQuiz }}
+    >
+      {children}
+    </QuizContext.Provider>
+  );
+};
+
+export const useQuiz = () => {
+  const context = useContext(QuizContext);
+  if (context === undefined) {
+    throw new Error('useQuiz must be used within a QuizProvider');
+  }
+  return context;
+};

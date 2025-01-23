@@ -1,0 +1,70 @@
+Analyze and debug the app's routing flow and navigation logic to fix the looping issue when clicking the button on the first page. Ensure that:
+
+The initial page navigates correctly to the questionnaire without looping.
+Navigation state is properly managed between PreviewAnswers and Recommendations.
+Error boundaries, loading states, and validation are correctly implemented.
+Steps to Implement:
+Fix Routing in App.tsx:
+
+Ensure BrowserRouter and Routes are structured properly.
+Use Navigate components where necessary.
+Example:
+tsx
+Copier
+Modifier
+<BrowserRouter>
+  <QuizContext.Provider value={{ answers, setAnswers }}>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/preview" element={<PreviewAnswers />} />
+      <Route path="/recommendations" element={<Recommendations />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  </QuizContext.Provider>
+</BrowserRouter>
+Validate Navigation Logic in Home.tsx:
+
+Ensure that the button click handler properly navigates to the next page:
+tsx
+Copier
+Modifier
+const handleStart = () => {
+  navigate("/preview");
+};
+Add State Validation in PreviewAnswers.tsx:
+
+Check that state is passed correctly and fallback logic is implemented:
+tsx
+Copier
+Modifier
+const { answers } = useContext(QuizContext);
+
+if (!answers) {
+  return <Navigate to="/" replace />;
+}
+Debug Recommendations.tsx State Flow:
+
+Ensure data passed via state or context is properly received:
+tsx
+Copier
+Modifier
+const location = useLocation();
+const answers = location.state?.answers || useContext(QuizContext).answers;
+
+if (!answers) {
+  console.error("Answers missing, redirecting to preview.");
+  return <Navigate to="/preview" replace />;
+}
+Global Error Boundaries:
+
+Add error boundaries to catch any unhandled exceptions:
+tsx
+Copier
+Modifier
+<ErrorBoundary>
+  <App />
+</ErrorBoundary>
+Expected Outcome:
+Navigation flow is seamless without looping.
+Errors are logged and caught by the error boundary.
+State is properly managed between pages."

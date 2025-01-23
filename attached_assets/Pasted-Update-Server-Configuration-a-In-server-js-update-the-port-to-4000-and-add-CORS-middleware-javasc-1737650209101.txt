@@ -1,0 +1,58 @@
+Update Server Configuration
+a. In server.js, update the port to 4000 and add CORS middleware:
+javascriptCopyconst PORT = process.env.PORT || 4000;
+app.use(cors());
+b. In vite.config.ts, update the proxy configuration to point to the correct server port:
+typescriptCopyexport default defineConfig({
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+      },
+    },
+  },
+});
+
+Improve State Management and Validation
+a. In src/context/QuizContext.tsx, implement robust state management and validation:
+
+Persist quiz state to localStorage
+Validate required fields before allowing navigation
+Provide clear error feedback to the user
+
+
+Enhance Routing and Navigation
+a. In src/App.tsx, properly wrap the app with the BrowserRouter:
+typescriptCopyimport { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Quiz />} />
+        <Route path="/recommendations" element={<Recommendations />} />
+      </Routes>
+    </Router>
+  );
+}
+b. Ensure the Quiz and Recommendations components handle navigation correctly based on the quiz state.
+Implement API Integration
+a. In src/pages/Recommendations.tsx, fetch recommendations from the backend API:
+typescriptCopyconst fetchRecommendations = async () => {
+  try {
+    const { skinType, condition, concerns } = answers;
+    const res = await fetch(`/api/recommendations?skinType=${skinType}&condition=${condition}&concerns=${concerns}`);
+    const data = await res.json();
+    setRecommendations(data);
+  } catch (error) {
+    console.error('Failed to fetch recommendations:', error);
+  }
+};
+
+Optimize Build and Deployment
+a. In package.json, update the start:all script to run both the frontend and backend servers:
+jsonCopy"start:all": "concurrently \"node src/server.js\" \"vite --port 3000\""
+b. Run npm run build to generate the production-ready files.
+c. In the Replit environment, configure the .replit file to run the start:all script.

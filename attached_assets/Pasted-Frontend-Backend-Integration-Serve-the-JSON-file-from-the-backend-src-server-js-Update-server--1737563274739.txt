@@ -1,0 +1,88 @@
+Frontend + Backend Integration
+Serve the JSON file from the backend (src/server.js):
+
+Update server.js to serve the JSON file and handle recommendations:
+javascript
+Copier
+Modifier
+const express = require("express");
+const path = require("path");
+const app = express();
+
+// Serve static files
+app.use(express.static(path.join(__dirname, "../dist")));
+
+// Serve JSON data
+const data = require("./data/skincare-db.json");
+
+app.get("/api/recommendations", (req, res) => {
+    const { skinType } = req.query;
+    if (!data.skinTypes[skinType]) {
+        return res.status(404).json({ error: "No recommendations found for this skin type" });
+    }
+    res.json(data.skinTypes[skinType]);
+});
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+Fetch recommendations from the backend in the frontend:
+
+In Recommendations.tsx, fetch recommendations from the API:
+javascript
+Copier
+Modifier
+import { useState, useEffect } from "react";
+
+const Recommendations = ({ answers }) => {
+    const [recommendations, setRecommendations] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchRecommendations = async () => {
+            try {
+                const response = await fetch(`/api/recommendations?skinType=${answers.skinType}`);
+                if (!response.ok) throw new Error("Failed to fetch recommendations");
+                const data = await response.json();
+                setRecommendations(data);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+        fetchRecommendations();
+    }, [answers]);
+
+    if (error) return <div>Error: {error}</div>;
+    if (!recommendations) return <div>Loading...</div>;
+
+    return (
+        <div>
+            <h2>Recommended Products:</h2>
+            <ul>
+                {recommendations.products.map((product, index) => (
+                    <li key={index}>{product}</li>
+                ))}
+            </ul>
+            <h3>Routine:</h3>
+            <div>
+                <h4>Matin:</h4>
+                <ul>
+                    {recommendations.routine.Matin.map((step, index) => (
+                        <li key={index}>{step}</li>
+                    ))}
+                </ul>
+                <h4>Soir:</h4>
+                <ul>
+                    {recommendations.routine.Soir.map((step, index) => (
+                        <li key={index}>{step}</li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+export default Recommendations;

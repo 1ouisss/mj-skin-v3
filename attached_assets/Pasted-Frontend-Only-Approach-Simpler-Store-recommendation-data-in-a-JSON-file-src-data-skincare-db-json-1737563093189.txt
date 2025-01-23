@@ -1,0 +1,88 @@
+Frontend-Only Approach (Simpler)
+Store recommendation data in a JSON file (src/data/skincare-db.json):
+
+Create src/data/skincare-db.json with your dataset:
+json
+Copier
+Modifier
+{
+  "skinTypes": {
+    "Sèche": {
+      "products": ["Crème Fraîche", "Eau de Néroli enrichie", "Lotus Sacré"],
+      "routine": {
+        "Matin": ["Nettoyage avec Crème Fraîche", "Application d’Eau de Néroli enrichie"],
+        "Soir": ["Nettoyage avec Crème Fraîche", "Masque Collagène"]
+      }
+    },
+    "Grasse": {
+      "products": ["Huile Nettoyante", "Eau d’Orange", "Gel Sébo"],
+      "routine": {
+        "Matin": ["Nettoyage avec Huile Nettoyante", "Gel Sébo"],
+        "Soir": ["Nettoyage avec Eau d’Orange"]
+      }
+    }
+  }
+}
+Process and display recommendations using React state:
+
+In src/pages/Recommendations.tsx, fetch data from skincare-db.json:
+javascript
+Copier
+Modifier
+import { useState, useEffect } from "react";
+import data from "../data/skincare-db.json";
+
+const Recommendations = ({ answers }) => {
+    const [recommendations, setRecommendations] = useState(null);
+
+    useEffect(() => {
+        const fetchRecommendations = () => {
+            const { skinType } = answers;
+            const recommendation = data.skinTypes[skinType];
+            setRecommendations(recommendation);
+        };
+        fetchRecommendations();
+    }, [answers]);
+
+    if (!recommendations) return <div>Loading...</div>;
+
+    return (
+        <div>
+            <h2>Recommended Products:</h2>
+            <ul>
+                {recommendations.products.map((product, index) => (
+                    <li key={index}>{product}</li>
+                ))}
+            </ul>
+            <h3>Routine:</h3>
+            <div>
+                <h4>Matin:</h4>
+                <ul>
+                    {recommendations.routine.Matin.map((step, index) => (
+                        <li key={index}>{step}</li>
+                    ))}
+                </ul>
+                <h4>Soir:</h4>
+                <ul>
+                    {recommendations.routine.Soir.map((step, index) => (
+                        <li key={index}>{step}</li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+export default Recommendations;
+Ensure local state is cleared after recommendations are displayed:
+
+In Recommendations.tsx, clear the state after displaying:
+javascript
+Copier
+Modifier
+useEffect(() => {
+    return () => {
+        console.log("Clearing answers after session.");
+        setRecommendations(null);
+    };
+}, []);

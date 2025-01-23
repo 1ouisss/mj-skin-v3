@@ -1,0 +1,133 @@
+ We are encountering the following error: useNavigate() may be used only in the context of a <Router> component. This issue persists even after ensuring that the app is wrapped in a <BrowserRouter> in App.tsx. Additionally, there may still be a navigation loop or a misconfigured context causing improper rendering or routing.
+
+Request:
+
+Router Context Validation:
+
+Verify if the <BrowserRouter> properly wraps the App component.
+Check for nested routers or mismatched <Routes> configuration that might cause the error.
+State and Navigation Debugging:
+
+Add console logs at each step of navigation to confirm if state or props are being passed correctly between components.
+Ensure useNavigate is only used within components that are children of <Routes>.
+Error Boundary and Debugging Enhancements:
+
+Implement a higher-level error boundary to catch and display meaningful error messages.
+Add logging to identify where the <Router> context is lost.
+Ultimate Fix:
+
+Refactor the app to use a consistent routing setup with the following components:
+Home: A start page with a button navigating to the quiz.
+PreviewAnswers: A page displaying quiz answers before recommendations.
+Recommendations: A page showing personalized recommendations.
+Ensure all components are correctly linked to QuizContext.
+Steps for Fixes:
+Step 1: Validate Router Wrapping
+Confirm that <BrowserRouter> is the topmost wrapper in main.tsx or index.tsx:
+tsx
+Copier
+Modifier
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
+);
+Step 2: Debug Router Context
+Add console logs at key navigation points to ensure proper context is used:
+tsx
+Copier
+Modifier
+console.log("Current Location:", window.location.pathname);
+console.log("Quiz Context State:", answers);
+Step 3: Fix Recommendations Component
+Update to handle missing state or improper routing:
+tsx
+Copier
+Modifier
+import { useLocation, Navigate } from "react-router-dom";
+
+const Recommendations = () => {
+  const location = useLocation();
+  const answers = location.state?.answers;
+
+  if (!answers) {
+    console.error("Missing quiz answers. Redirecting to Home.");
+    return <Navigate to="/" replace />;
+  }
+
+  return (
+    <div>
+      <h1>Your Recommendations</h1>
+      {/* Render recommendations */}
+    </div>
+  );
+};
+
+export default Recommendations;
+Step 4: Error Boundary
+Implement a global error boundary:
+tsx
+Copier
+Modifier
+import React from "react";
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Error caught by ErrorBoundary:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>An error occurred: {this.state.error.message}</h1>;
+    }
+    return this.props.children;
+  }
+}
+
+export default ErrorBoundary;
+Wrap the app with the error boundary:
+tsx
+Copier
+Modifier
+<ErrorBoundary>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+</ErrorBoundary>
+Step 5: Refactor State Management
+Ensure all components use QuizContext:
+tsx
+Copier
+Modifier
+const Home = () => {
+  const { setAnswers } = useQuiz();
+  const navigate = useNavigate();
+
+  const handleStart = () => {
+    setAnswers({}); // Initialize state
+    navigate("/preview");
+  };
+
+  return <button onClick={handleStart}>Start Questionnaire</button>;
+};
+Expected Debugging Output
+Once these changes are implemented:
+
+The app will log navigation and state changes to confirm proper data flow.
+Missing <Router> context issues will be resolved.
+Navigation loops will stop, and error messages will be more actionable.

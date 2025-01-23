@@ -1,0 +1,59 @@
+Diagnose all errors and inconsistencies in the application without making changes. The focus is to collect and understand the root causes of the issues.
+
+Prompt:
+
+Router Context and Navigation Issues:
+Identify if all components using useNavigate() or useLocation() are properly wrapped within a <Router> component.
+Log all route transitions and ensure no infinite loops or invalid redirects.
+Ask for:
+
+Current route paths during navigation.
+Specific components triggering navigation unexpectedly.
+Confirmation if navigation logic (e.g., <Navigate> or useEffect) is behaving as expected.
+State Management Issues:
+Check if QuizContext or other context providers are losing state across components.
+Identify any issues with localStorage or location.state usage.
+Ask for:
+
+The current state in QuizContext or any shared state.
+Logs of state transitions between pages.
+Missing or invalid data in state.
+Component Rendering Issues:
+Confirm if components are rendering as expected without errors.
+Identify if components mount and unmount unexpectedly.
+Ask for:
+
+Logs of component lifecycle (mounting/unmounting).
+Any React warnings or errors during rendering.
+Specific components failing to render properly.
+API Call and Data Handling Issues:
+Verify that all API calls succeed and return valid data.
+Check if the data structure matches the expected format in components.
+Ask for:
+
+Logs of API request and response data.
+Any API errors or failed fetches.
+Invalid or undefined data passed to components.
+Error Boundaries:
+Confirm if error boundaries are properly logging and catching all rendering errors.
+Identify uncaught exceptions or issues in rendering.
+Ask for:
+
+Logs of all caught errors and their stack traces.
+Uncaught errors in the browser console.
+General Logs and Browser Console Errors:
+Collect all console warnings and errors during runtime.
+Focus on React warnings, navigation errors, and invalid prop usage.
+Ask for:
+
+Logs of all warnings and errors during app execution.
+Specific error messages related to routing, state, or rendering.
+Instructions for Debugging:
+Run the application in Replit.
+Open the browser console (F12) and log all route changes, navigation triggers, and errors.
+Observe state transitions and data flow in key components (Index, Recommendations, QuizContext).
+Share complete logs for analysis.
+Expected Output:
+
+Detailed logs of router, state, component, API, and error-related issues.
+Specific insights into navigation loops, missing state, or rendering errors.

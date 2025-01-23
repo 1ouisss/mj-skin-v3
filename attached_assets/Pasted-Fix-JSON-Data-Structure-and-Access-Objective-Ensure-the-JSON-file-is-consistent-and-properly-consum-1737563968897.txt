@@ -1,0 +1,102 @@
+Fix JSON Data Structure and Access
+Objective: Ensure the JSON file is consistent and properly consumed by the frontend.
+
+Fix the skincare-db.json structure:
+
+Create a well-structured JSON file (src/data/skincare-db.json):
+json
+Copier
+Modifier
+{
+  "skinTypes": {
+    "Sèche": {
+      "products": ["Crème Fraîche", "Eau de Néroli enrichie", "Lotus Sacré"],
+      "routine": {
+        "Matin": ["Nettoyage avec Crème Fraîche", "Application d’Eau de Néroli enrichie"],
+        "Soir": ["Nettoyage avec Crème Fraîche", "Masque Collagène"]
+      }
+    },
+    "Grasse": {
+      "products": ["Huile Nettoyante", "Eau d’Orange", "Gel Sébo"],
+      "routine": {
+        "Matin": ["Nettoyage avec Huile Nettoyante", "Gel Sébo"],
+        "Soir": ["Nettoyage avec Eau d’Orange"]
+      }
+    }
+  }
+}
+Load and validate JSON in the Recommendations page:
+
+In src/pages/Recommendations.tsx, load JSON data dynamically and validate inputs:
+javascript
+Copier
+Modifier
+import { useState, useEffect } from "react";
+import data from "../data/skincare-db.json";
+
+const Recommendations = ({ answers }) => {
+    const [recommendations, setRecommendations] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        try {
+            const { skinType } = answers;
+            if (!data.skinTypes[skinType]) {
+                throw new Error("No recommendations found for this skin type");
+            }
+            setRecommendations(data.skinTypes[skinType]);
+        } catch (err) {
+            setError(err.message);
+        }
+    }, [answers]);
+
+    if (error) return <div>Error: {error}</div>;
+    if (!recommendations) return <div>Loading...</div>;
+
+    return (
+        <div>
+            <h2>Recommended Products:</h2>
+            <ul>
+                {recommendations.products.map((product, index) => (
+                    <li key={index}>{product}</li>
+                ))}
+            </ul>
+            <h3>Routine:</h3>
+            <div>
+                <h4>Matin:</h4>
+                <ul>
+                    {recommendations.routine.Matin.map((step, index) => (
+                        <li key={index}>{step}</li>
+                    ))}
+                </ul>
+                <h4>Soir:</h4>
+                <ul>
+                    {recommendations.routine.Soir.map((step, index) => (
+                        <li key={index}>{step}</li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+export default Recommendations;
+Ensure JSON validation on load:
+
+Add a validation function:
+javascript
+Copier
+Modifier
+const validateAnswers = (answers) => {
+    if (!answers.skinType) {
+        throw new Error("Skin type is required to generate recommendations.");
+    }
+};
+
+useEffect(() => {
+    try {
+        validateAnswers(answers);
+    } catch (err) {
+        setError(err.message);
+    }
+}, [answers]);

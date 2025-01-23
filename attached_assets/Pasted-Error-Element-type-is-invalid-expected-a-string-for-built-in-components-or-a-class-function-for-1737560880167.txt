@@ -1,0 +1,13 @@
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `App`.
+    at createFiberFromTypeAndProps (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:20442:23)
+    at createFiberFromElement (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:20463:23)
+    at reconcileSingleElement (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:10513:31)
+    at reconcileChildFibers2 (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:10550:43)
+    at reconcileChildren (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:14292:37)
+    at updateOffscreenComponent (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:14517:11)
+    at beginWork (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:15995:22)
+    at beginWork$1 (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:19753:22)
+    at performUnitOfWork (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:19198:20)
+    at workLoopSync (https://8a078349-3cce-40a3-b4da-88f687665f6d-00-17e4ozuzucmti.picard.replit.dev/node_modules/.vite/deps/chunk-WERSD76P.js?v=50d6c35d:19137:13)

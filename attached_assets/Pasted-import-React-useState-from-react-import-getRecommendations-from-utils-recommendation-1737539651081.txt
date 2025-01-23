@@ -1,0 +1,85 @@
+import React, { useState } from "react";
+import { getRecommendations } from "../utils/recommendations";
+
+const Recommendations = () => {
+  const [inputs, setInputs] = useState({
+    skinType: "Sèche",
+    condition: "Acné",
+    concern: "Rougeurs",
+    texturePreference: "Légère",
+    scentPreference: "Avec parfum naturel"
+  });
+
+  const [recommendation, setRecommendation] = useState(null);
+
+  const handleFetchRecommendations = () => {
+    const result = getRecommendations(
+      inputs.skinType,
+      inputs.condition,
+      inputs.concern,
+      inputs.texturePreference,
+      inputs.scentPreference
+    );
+    setRecommendation(result);
+  };
+
+  return (
+    <div>
+      <h1>Vos Recommandations</h1>
+
+      {/* Inputs for user to select preferences */}
+      <div>
+        <label>
+          Skin Type:
+          <input value={inputs.skinType} onChange={(e) => setInputs({ ...inputs, skinType: e.target.value })} />
+        </label>
+        <label>
+          Condition:
+          <input value={inputs.condition} onChange={(e) => setInputs({ ...inputs, condition: e.target.value })} />
+        </label>
+        <label>
+          Concern:
+          <input value={inputs.concern} onChange={(e) => setInputs({ ...inputs, concern: e.target.value })} />
+        </label>
+        <label>
+          Texture Preference:
+          <input value={inputs.texturePreference} onChange={(e) => setInputs({ ...inputs, texturePreference: e.target.value })} />
+        </label>
+        <label>
+          Scent Preference:
+          <input value={inputs.scentPreference} onChange={(e) => setInputs({ ...inputs, scentPreference: e.target.value })} />
+        </label>
+        <button onClick={handleFetchRecommendations}>Voir les recommandations</button>
+      </div>
+
+      {/* Display Recommendations */}
+      {recommendation && (
+        <div>
+          <h2>Produits Recommandés</h2>
+          <ul>
+            {recommendation.Products?.map((product, index) => (
+              <li key={index}>{product}</li>
+            ))}
+          </ul>
+
+          <h2>Routine</h2>
+          <h3>Matin</h3>
+          <ul>
+            {recommendation.Routine?.Matin.map((step, index) => (
+              <li key={index}>{step}</li>
+            ))}
+          </ul>
+          <h3>Soir</h3>
+          <ul>
+            {recommendation.Routine?.Soir.map((step, index) => (
+              <li key={index}>{step}</li>
+            ))}
+          </ul>
+          <p>{recommendation.Routine?.Résultat}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Recommendations;

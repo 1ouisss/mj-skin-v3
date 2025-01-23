@@ -1,0 +1,81 @@
+{
+  "SkinType": {
+    "Sèche": {
+      "Condition": {
+        "Acné": {
+          "Concern": {
+            "Rougeurs": {
+              "TexturePreference": {
+                "Légère": {
+                  "ScentPreference": {
+                    "Avec parfum naturel": {
+                      "Products": [
+                        "Crème Fraîche",
+                        "Eau de Néroli enrichie",
+                        "Lotus Sacré",
+                        "Sérum Immortelle",
+                        "Masque collagène avec Karité Vanillé"
+                      ],
+                      "Routine": {
+                        "Matin": [
+                          "Nettoyage avec Crème Fraîche",
+                          "Application d’Eau de Néroli enrichie",
+                          "Application de Lotus Sacré",
+                          "Sérum Immortelle pour sceller l’hydratation"
+                        ],
+                        "Soir": [
+                          "Nettoyage avec Crème Fraîche",
+                          "Application d’Eau de Néroli enrichie",
+                          "Sérum Immortelle",
+                          "Masque collagène avec Karité Vanillé (1-3 fois par semaine)"
+                        ],
+                        "Résultat": "Hydratation profonde, confort immédiat, peau revitalisée. 😊"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Grasse": {
+      "Condition": {
+        "Acné": {
+          "Concern": {
+            "Rougeurs": {
+              "TexturePreference": {
+                "Légère": {
+                  "ScentPreference": {
+                    "Avec parfum naturel": {
+                      "Products": [
+                        "Huile Nettoyante avec Gel d’Aloès",
+                        "Eau d’Orange",
+                        "Gel Sébo",
+                        "Exfopur"
+                      ],
+                      "Routine": {
+                        "Matin": [
+                          "Nettoyage avec Huile Nettoyante + Gel d’Aloès",
+                          "Application d’Eau d’Orange",
+                          "Application de Gel Sébo"
+                        ],
+                        "Soir": [
+                          "Nettoyage avec Huile Nettoyante seule",
+                          "Eau d’Orange",
+                          "Masque Exfopur (1-3 fois par semaine)"
+                        ],
+                        "Résultat": "Contrôle du sébum, peau matifiée, réduction des imperfections. 😊"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

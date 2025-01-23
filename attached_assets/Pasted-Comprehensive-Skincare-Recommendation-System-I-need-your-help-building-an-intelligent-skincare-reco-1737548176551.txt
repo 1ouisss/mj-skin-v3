@@ -1,0 +1,223 @@
+Comprehensive Skincare Recommendation System
+
+I need your help building an intelligent skincare recommendation system. Here’s the complete breakdown of requirements and data:
+
+### 1. **Data and Recommendations** #### **Analyze all data** about Maison Jacynthe skincare products and implement a recommendation system using the following prioritization: 1. **SkinType** (highest priority) 2. **Condition** 3. **Concerns** 4. **TexturePreference** 5. **ScentPreference** For each question, include **specific product recommendations** and a **routine**. Prioritize combinations based on user inputs, ensuring **logical and personalized outputs**.
+
+### 2. **Output Structure** #### **Products (Top Section)**: - Limit to **3 product recommendations** (e.g., Cleanser, Toner, Serum, Hydrator, Mask). - Ensure products align with inputs and user priorities. #### **Routine (Bottom Section)**: - Separate into **Matin** and **Soir** routines. - Include detailed steps for each routine: - Routine: **Matin**: Nettoyage avec [Produit]. Application de [Produit]. Sérum au choix ([Options]). [Additional Steps]. **Résultat attendu**: [Outcome with emoji]. 😊
+
+Dataset Structure
+1. SkinType
+* Options: Sèche, Grasse, Mixte, Sensible, Terne, Normale.
+2. Condition
+* Options: Acné, Eczéma.
+3. Concerns
+* Options: Rides, Rougeurs, Points noirs, Cernes, Taches pigmentaires, Boutons, Imperfections, Pores dilatés, Perte de fermeté.
+4. TexturePreference
+* Options: Légère, Fluide, Crémeuse, Riche.
+5. ScentPreference
+* Options: Avec parfum naturel, Sans huiles essentielles.
+
+### 3. **Complete Dataset**
+
+1. SkinType-Based Recommendations
+Sèche
+* Products:
+    * Nettoyage: Crème Fraîche.
+    * Eau florale: Eau de Néroli enrichie.
+    * Hydratant: Lotus Sacré.
+    * Sérum: Sérum Immortelle.
+    * Masque: Masque Collagène avec Karité Vanillé.
+* Routine:
+    * Matin: Nettoyage avec Crème Fraîche. Application d’Eau de Néroli enrichie. Application de Lotus Sacré. Sérum Immortelle pour sceller l’hydratation.
+    * Soir: Nettoyage avec Crème Fraîche. Eau de Néroli enrichie. Sérum Immortelle. Masque Collagène avec Karité Vanillé (1-3 fois/semaine).
+    * Résultat attendu: Hydratation profonde, confort immédiat, peau revitalisée. 😊
+Grasse
+* Products:
+    * Nettoyage: Huile Nettoyante avec Gel d’Aloès.
+    * Eau florale: Eau d’Orange.
+    * Sérum: Gel Sébo.
+    * Masque: Exfopur (1-3 fois/semaine).
+* Routine:
+    * Matin: Nettoyage avec Huile Nettoyante + Gel d’Aloès. Eau d’Orange. Gel Sébo.
+    * Soir: Nettoyage avec Huile Nettoyante seule. Eau d’Orange. Masque Exfopur.
+    * Résultat attendu: Contrôle du sébum, peau matifiée, réduction des imperfections. 🍊
+Mixte
+* Products:
+    * Nettoyage: Huile Nettoyante.
+    * Eau florale: Eau de Rose.
+    * Hydratant: Phytocomplexe.
+    * Sérum: Sérum Rose.
+* Routine:
+    * Matin: Nettoyage avec Huile Nettoyante. Eau de Rose. Phytocomplexe. Sérum Rose.
+    * Soir: Nettoyage avec Huile Nettoyante. Eau de Rose. Sérum Rose.
+    * Résultat attendu: Équilibre hydratation/sébum, éclat du teint. 🌸
+Sensible
+* Products:
+    * Nettoyage: Gel Nettoyant Doux.
+    * Eau florale: Eau de Néroli.
+    * Hydratant: Crème Fraîche.
+    * Sérum: Sérum Jasmin Rose.
+* Routine:
+    * Matin: Nettoyage avec Gel Nettoyant Doux. Eau de Néroli. Crème Fraîche. Sérum Jasmin Rose.
+    * Soir: Nettoyage avec Gel Nettoyant Doux. Eau de Néroli. Sérum Jasmin Rose.
+    * Résultat attendu: Apaisement, réduction des rougeurs, confort. 😊
+Terne
+* Products:
+    * Nettoyage: Huile Nettoyante + Exfopur.
+    * Eau florale: Eau d’Orange.
+    * Gel: Gel Coup d’Éclat.
+    * Sérum: Sérum Jasmin Rose.
+* Routine:
+    * Matin: Nettoyage avec Huile Nettoyante mélangée à Exfopur. Eau d’Orange. Gel Coup d’Éclat. Sérum Jasmin Rose.
+    * Soir: Nettoyage avec Huile Nettoyante seule. Eau d’Orange. Sérum Jasmin Rose.
+    * Résultat attendu: Peau lumineuse, teint éclatant. 💖
+Normale
+* Products:
+    * Nettoyage: Huile Nettoyante.
+    * Eau florale: Eau de Rose.
+    * Sérum: Sérum Rose.
+* Routine:
+    * Matin et Soir: Nettoyage avec Huile Nettoyante. Eau de Rose. Sérum Rose.
+    * Résultat attendu: Maintien de l’équilibre naturel de la peau. 😊
+
+2. Condition-Based Recommendations
+Acné
+* Products:
+    * Nettoyage: Huile Nettoyante avec Gel d’Aloès.
+    * Deuxième Nettoyage: Dermopur Acné.
+    * Eau florale: Eau de Néroli.
+    * Sérum: Gel Sébo.
+    * Masque: Exfopur (1-3 fois/semaine).
+* Routine:
+    * Matin: Nettoyage avec Huile Nettoyante + Gel d’Aloès. Eau de Néroli. Gel Sébo.
+    * Soir: Nettoyage avec Dermopur Acné. Masque Exfopur. Sérum Gel Sébo.
+    * Résultat attendu: Peau purifiée, réduction des boutons. 🙌
+Eczéma
+* Products:
+    * Nettoyage: Huile de Jojoba.
+    * Baume: Baume Apaisant & Protecteur.
+* Routine:
+    * Matin et Soir: Nettoyage avec Huile de Jojoba. Baume Apaisant & Protecteur.
+    * Résultat attendu: Réduction des irritations, peau apaisée. 💚
+* Aucune
+* Products:
+* Nettoyage: Huile Nettoyante.
+* Eau florale: Eau de Rose.
+* Sérum: Sérum Rose.
+* Routine:
+* Matin: Nettoyage avec Huile Nettoyante. Application d’Eau de Rose. Application de Sérum Rose. Résultat attendu: Maintien de la santé naturelle et de l’équilibre de la peau. 😊
+* Soir: Nettoyage avec Huile Nettoyante. Application d’Eau de Rose. Sérum Rose. Résultat attendu: Hydratation légère, peau éclatante. 🌹
+
+3. Concerns-Based Recommendations
+Rides
+* Products:
+    * Nettoyage: Huile Nettoyante + Mousseline Kukui.
+    * Eau florale: Magnolia.
+    * Sérum: Sérum Magnolia.
+    * Masque: Masque Collagène avec Karité Vanillé.
+* Routine:
+    * Matin: Nettoyage avec Huile Nettoyante. Eau Magnolia. Sérum Magnolia.
+    * Soir: Nettoyage avec Huile Nettoyante. Eau Magnolia. Sérum Magnolia. Masque Collagène.
+    * Résultat attendu: Réduction des rides, peau éclatante. 😍
+
+Rougeurs
+Products:
+* Nettoyage: Huile Nettoyante.
+* Eau florale: Eau de Rose.
+* Sérum: Sérum Rose.
+* Hydratant: Crème Fraîche.
+Routine:
+* Matin: Nettoyage avec Huile Nettoyante. Application d’Eau de Rose. Sérum Rose. Crème Fraîche pour apaiser. Résultat attendu: Apaisement immédiat, diminution des rougeurs. 🌼
+* Soir: Nettoyage avec Huile Nettoyante. Eau de Rose. Sérum Rose. Résultat attendu: Peau apaisée, uniformité du teint. 💆‍♀️
+
+Points Noirs
+Products:
+* Nettoyage: Huile Nettoyante avec 2 gouttes d’Exfopur.
+* Eau florale: Eau d’Orange.
+* Sérum: Sublimateur.
+* Masque: Exfopur (10 minutes, 1-3 fois/semaine).
+Routine:
+* Matin: Nettoyage avec Huile Nettoyante et Exfopur. Eau d’Orange. Sublimateur. Résultat attendu: Réduction des points noirs, peau lisse. ✨
+* Soir: Nettoyage répété avec Huile Nettoyante pour retirer les huiles. Masque Exfopur (10 minutes, 1-3 fois/semaine). Résultat attendu: Pores dégagés, teint net. 😌
+
+
+Cernes
+Products:
+* Nettoyage: Huile Nettoyante.
+* Eau florale: Hélichryse.
+* Sérum: Sérum (au choix: Jasmin Rose, Rose, Magnolia, ou Immortelle).
+* Traitement: Cocktail Contour ou Soin Jeunesse.
+Routine:
+* Matin: Nettoyage avec Huile Nettoyante. Application d’Eau Hélichryse. Sérum au choix (Jasmin Rose, Rose, Magnolia, ou Immortelle). Cocktail Contour pour illuminer et hydrater. Résultat attendu: Regard rafraîchi et lumineux. 👀
+* Soir: Nettoyage avec Huile Nettoyante. Eau Hélichryse. Soin Jeunesse pour apaiser et restaurer. Résultat attendu: Réduction visible des cernes, peau reposée. 💤
+
+
+Taches Pigmentaires
+Products:
+* Nettoyage: Huile Nettoyante.
+* Eau florale: Magnolia.
+* Sérum: Sérum Or.
+* Masque: Masque éclaircissant (1-3 fois/semaine).
+Routine:
+* Matin: Nettoyage avec Huile Nettoyante. Application d’Eau Magnolia. Sérum Or. Résultat attendu: Réduction des taches pigmentaires, éclat du teint. 🌟
+* Soir: Nettoyage avec Huile Nettoyante. Eau Magnolia. Sérum Or. Masque éclaircissant (selon besoins). Résultat attendu: Un teint unifié et lumineux. 🌞
+
+Boutons
+Products:
+* Nettoyage: Huile Nettoyante.
+* Eau florale: Eau d’Orange.
+* Sérum: Huile Nettoyante en sérum.
+* Masque: Exfopur (1-3 fois/semaine).
+Routine:
+* Matin: Nettoyage avec Huile Nettoyante. Eau d’Orange. Sérum Huile Nettoyante. Résultat attendu: Réduction des boutons, peau apaisée. 🌿
+* Soir: Nettoyage avec Huile Nettoyante. Masque Exfopur (10 minutes, rincé). Résultat attendu: Peau purifiée, éclat naturel. ✨
+
+
+Imperfections
+Products:
+* Nettoyage: Huile Nettoyante.
+* Eau florale: Eau d’Orange.
+* Sérum: Sublimateur.
+* Masque: Exfopro (1-3 fois/semaine).
+Routine:
+* Matin: Nettoyage avec Huile Nettoyante. Eau d’Orange. Sérum Sublimateur. Résultat attendu: Peau uniforme et sans imperfections. 😊
+* Soir: Nettoyage avec Huile Nettoyante. Masque Exfopro (selon besoins). Sérum Sublimateur. Résultat attendu: Réduction visible des imperfections, peau nette. 💧
+
+
+Pores Dilatés
+Products:
+* Nettoyage: Huile Nettoyante.
+* Eau florale: Eau de Romarin.
+* Sérum: Gel Sébo.
+* Traitement: Huile de Tamanu.
+Routine:
+* Matin: Nettoyage avec Huile Nettoyante. Application d’Eau de Romarin. Sérum Gel Sébo. Résultat attendu: Pores resserrés, peau lisse. 🌸
+* Soir: Nettoyage avec Huile Nettoyante. Huile de Tamanu (localement sur les pores). Résultat attendu: Texture affinée, matité renforcée. 🪞
+
+
+Perte de Fermeté
+Products:
+* Nettoyage: Huile Nettoyante.
+* Eau florale: Eau de Rose.
+* Sérum: Sérum Jasmin Rose (en hiver) ou Sérum Rose/Néroli (en été).
+* Traitement: Phytocomplexe.
+* Hydratant: Fluide Tenseur.
+Routine:
+* Matin: Nettoyage avec Huile Nettoyante. Eau de Rose. Sérum au choix (selon saison). Fluide Tenseur. Résultat attendu: Peau liftée et éclatante. 🌟
+
+
+4. Additional Preferences
+TexturePreference:
+* Légère: Crème Légère.
+* Fluide: Fluide Tenseur.
+* Crémeuse: Crème Magnolia.
+* Riche: Baume Karité.
+ScentPreference:
+* Avec parfum naturel: Huile Nettoyante parfumée.
+* Sans huiles essentielles: Crème Fraîche.
+
+
+### 4. **Code Requirements** 1. Frontend: Input fields for user answers. 2. Backend: Logic in Python/JavaScript to process answers and generate recommendations dynamically. --- ### 5. **Integration in Replit** Provide modular, **error-handling-ready code snippets** for quick implementation.
+
+

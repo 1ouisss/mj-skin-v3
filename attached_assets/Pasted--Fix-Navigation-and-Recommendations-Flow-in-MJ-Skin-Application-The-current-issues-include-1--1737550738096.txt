@@ -1,0 +1,55 @@
+**Fix Navigation and Recommendations Flow in MJ Skin Application**
+
+The current issues include:
+1. **PreviewAnswers Page:**
+   - Navigation to the Recommendations page fails after clicking "Voir les recommandations."
+   - The PreviewAnswers page shows only newsletter answers instead of all quiz responses.
+   - Option to edit all answers should be available on the Preview page.
+
+2. **Recommendations Page:**
+   - Displays "Impossible d'obtenir les recommandations. Veuillez réessayer."
+   - Recommendations don't load even after completing the quiz.
+
+3. **General Issues:**
+   - BG images take too long to load.
+   - Validation errors incorrectly block navigation (e.g., "Missing required answers" even when all fields are filled).
+
+### Expected Fixes:
+1. **PreviewAnswers Page:**
+   - Properly display all quiz responses for preview (including skin type, condition, concerns, preferences).
+   - Include an "Edit" option to navigate back to previous quiz steps.
+   - Fix navigation to Recommendations with proper state/data passing.
+
+2. **Recommendations Page:**
+   - Ensure recommendations data is properly fetched from the local JSON.
+   - Display dynamic product recommendations and routines based on the quiz answers.
+   - Add error handling for edge cases (e.g., missing answers, invalid data).
+
+3. **Optimization:**
+   - Add a loading spinner/logo between navigation steps for smooth user experience.
+   - Lazy load images to improve performance.
+   - Ensure that all required quiz answers are validated properly before navigating to the preview page.
+
+### Code Fix Instructions:
+1. **PreviewAnswers.tsx:**
+   - Ensure quiz answers are passed via `state` to the Recommendations page.
+   - Show all user answers with French labels and provide an "Edit" button for each step.
+
+2. **Recommendations.tsx:**
+   - Fetch recommendations from `src/data/skincare-db.json` based on the quiz answers.
+   - Handle cases where required answers are missing with user-friendly errors.
+
+3. **App.tsx (Routing):**
+   - Fix routing to pass the quiz answers properly between components.
+   - Use React Suspense or a Loading component for navigation delays.
+
+4. **General Improvements:**
+   - Add error boundaries for better debugging.
+   - Include a `LoadingPage` component for smoother transitions.
+
+### Technical Stack:
+- React (TypeScript)
+- Local JSON for recommendations
+- Use state and props for navigation
+
+Implement the above fixes and ensure proper validation, navigation, and display of recommendations.

@@ -1,0 +1,54 @@
+**Fix MJ Skin Application Issues: Preview and Recommendations**
+
+The current application issues include:
+1. The **PreviewAnswers** screen does not load and shows a blank page.
+2. Clicking "Voir les recommandations" does not navigate to the Recommendations page.
+3. The Recommendations page does not display any data and shows "Impossible d'obtenir les recommandations."
+4. General loading and performance issues (e.g., long BG image load times).
+
+### Expected Fixes:
+1. **PreviewAnswers Page**:
+   - Ensure the page loads properly and displays all quiz answers (skin type, condition, concerns, texture, scent preferences).
+   - Include a button for editing answers and properly validate that all required answers are present.
+   - Fix navigation to the Recommendations page by passing the correct state or props.
+
+2. **Recommendations Page**:
+   - Properly load data from `src/data/skincare-db.json` using the answers passed from the PreviewAnswers page.
+   - Display personalized recommendations in a clean and dynamic layout.
+   - Add proper error handling (e.g., if no recommendations are found or invalid state is passed).
+
+3. **General Performance Improvements**:
+   - Add a **LoadingScreen** component to show the MJ logo and a spinner during transitions.
+   - Optimize image loading with lazy loading (`loading="lazy"`) to improve performance.
+
+### Specific Code Updates:
+1. **PreviewAnswers.tsx**:
+   - Fix the data flow to ensure all quiz answers are passed to the Recommendations page.
+   - Validate all required fields and handle missing answers with user-friendly messages.
+   - Debug navigation issues to ensure "Voir les recommandations" works properly.
+
+2. **Recommendations.tsx**:
+   - Use `useMemo` to calculate recommendations based on the quiz answers for better performance.
+   - Add proper validation to handle missing or invalid props/state gracefully.
+   - Ensure the recommendations display matches the expected structure (products + routine).
+
+3. **App.tsx**:
+   - Fix routing to ensure state is passed correctly between pages.
+   - Wrap routes with `React.Suspense` to display the LoadingScreen during transitions.
+
+4. **ErrorBoundary.tsx**:
+   - Enhance error boundary to show a friendly error message with an option to retry.
+
+5. **LoadingScreen.tsx**:
+   - Create a new LoadingScreen component with the MJ logo and a spinner.
+   - Use this component in all transitions (e.g., when navigating to Recommendations).
+
+### Technical Notes:
+- Use local JSON (`src/data/skincare-db.json`) for recommendations.
+- Validate all user input before generating recommendations.
+- Add console logs or error messages for better debugging during development.
+
+### Key Outcomes:
+- The PreviewAnswers page should properly display all user answers and allow navigation to Recommendations.
+- The Recommendations page should dynamically display personalized skincare recommendations and routines.
+- Loading screens and error handling should enhance the user experience.

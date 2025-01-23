@@ -1,0 +1,100 @@
+Full System Debugging for State and Recommendations
+Goal: Debug the recommendation system, validate state handling, and ensure outputs match user inputs.
+
+Prompt: "Perform a full system debug of the skincare recommendation system to ensure:
+
+User inputs are properly captured and stored in context or state.
+Recommendations are correctly generated based on prioritized criteria.
+Validation is enforced for all required inputs.
+Outputs display correctly with the required product recommendations and routines.
+Steps to Implement:
+Validate Context Setup:
+
+Ensure QuizContext provides and manages answers properly:
+tsx
+Copier
+Modifier
+const [answers, setAnswers] = useState({});
+const value = { answers, setAnswers };
+return (
+  <QuizContext.Provider value={value}>
+    {children}
+  </QuizContext.Provider>
+);
+Improve Recommendations.tsx Logic:
+
+Ensure the recommendations are dynamically filtered based on user inputs:
+tsx
+Copier
+Modifier
+const generateRecommendations = (answers) => {
+  // Prioritize SkinType > Condition > Concerns
+  const { SkinType, Condition, Concerns } = answers;
+  const recommendations = skincareData.filter((item) =>
+    item.SkinType.includes(SkinType) &&
+    item.Condition.includes(Condition) &&
+    Concerns.some((concern) => item.Concerns.includes(concern))
+  );
+  return recommendations.slice(0, 3); // Limit to top 3
+};
+
+useEffect(() => {
+  if (answers) {
+    const results = generateRecommendations(answers);
+    setRecommendations(results);
+  }
+}, [answers]);
+Add Dynamic Output to Recommendations:
+
+Display products and routines dynamically based on user inputs:
+tsx
+Copier
+Modifier
+return (
+  <div>
+    <h1>Your Recommendations</h1>
+    {recommendations.map((rec) => (
+      <div key={rec.id}>
+        <h2>{rec.name}</h2>
+        <p>{rec.description}</p>
+      </div>
+    ))}
+    <h2>Your Routine</h2>
+    <p>Matin: {routine.morning}</p>
+    <p>Soir: {routine.evening}</p>
+  </div>
+);
+Validate Required Inputs:
+
+Add validation for missing answers in PreviewAnswers.tsx:
+tsx
+Copier
+Modifier
+const validateAnswers = (answers) => {
+  const requiredFields = ["SkinType", "Condition", "Concerns"];
+  const missing = requiredFields.filter((field) => !answers[field]);
+  if (missing.length > 0) {
+    throw new Error(`Missing required fields: ${missing.join(", ")}`);
+  }
+};
+
+try {
+  validateAnswers(answers);
+} catch (error) {
+  console.error(error.message);
+  navigate("/");
+}
+Add Comprehensive Logging:
+
+Log critical events for debugging:
+tsx
+Copier
+Modifier
+console.group("Debugging Recommendations");
+console.log("Current Answers:", answers);
+console.log("Generated Recommendations:", recommendations);
+console.groupEnd();
+Expected Outcome:
+Recommendations are dynamically generated and displayed correctly.
+Validation ensures only complete inputs proceed to the next page.
+Console logs provide clear insights into the app's state and data flow."
